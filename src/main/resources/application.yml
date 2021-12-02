@@ -1,0 +1,47 @@
+server:
+  port: ${PORT:8084}
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: clinic-auth-service
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO}
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+app:
+  tokenSecret: ${TOKEN_SECRET}
+  tokenExpirationMs: ${TOKEN_EXPIRATION}
+  
+eureka:
+  instance:
+    non-secure-port: 80
+    hostname: ${HOST_NAME}
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL:http://user:password@localhost:8761}/eureka/
+
